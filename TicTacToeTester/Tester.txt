@@ -1,0 +1,60 @@
+import java.util.Scanner;
+
+public class TicTacToeTester
+{
+    public static void main(String[] args)
+    {
+        Scanner input = new Scanner(System.in);
+        Scanner input1 = new Scanner(System.in);
+        TicTacToe game = new TicTacToe();
+        
+        System.out.println("Hello! Welcome to Tic-Tac-Toe, Online Edition!");
+        System.out.println("Player 1 will be X's and Player 2 will be O's");
+        System.out.println("Enter the row and than the column you want to place your coin.");
+        
+        while(game.checkWin() == false) {
+           
+            game.printBoard();       
+            System.out.println("Player 1, What row do you want to place your marker in?");
+            int row = input.nextInt();
+            System.out.println("Player 1, What column do you want to place your marker in?");
+            int col = input.nextInt();
+            
+            if (row > 2 || col > 2){
+                System.out.println("Sorry, that is not valid, try again.");
+            } else {
+                
+                if(game.pickLocation(row, col) == false){
+                    System.out.println("Sorry, that is not valid, try again.");                    
+                } else {
+                    game.takeTurn(row, col);
+                    if(game.checkWin() == true){
+                        System.out.println("Player 1 won!");
+                        break;
+                    }
+                    game.printBoard();       
+                    System.out.println("Player 2, What row do you want to place your marker in?");
+                    int row1 = input1.nextInt();
+                    System.out.println("Player 2, What column do you want to place your marker in?");
+                    int col1 = input1.nextInt();
+                    if (row > 2 || col > 2){
+                        System.out.println("Sorry, that is not valid, try again.");
+                    } else {    
+                        game.takeTurn(row1, col1);
+                        if(game.pickLocation(row, col) == true){    
+                            System.out.println("Sorry, that is not valid, try again.");
+                        } else {
+                            game.takeTurn(row, col);
+                            if(game.checkWin() == true){
+                                System.out.println("Player 2 won!");
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+        
+    }
+}
